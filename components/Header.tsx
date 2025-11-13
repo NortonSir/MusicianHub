@@ -4,11 +4,21 @@ import { ArtistProfile, TranslationKey } from '../types';
 interface HeaderProps {
   profile: ArtistProfile;
   t: (key: TranslationKey) => string;
+  onBackToList?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ profile, t }) => {
+const Header: React.FC<HeaderProps> = ({ profile, t, onBackToList }) => {
   return (
     <header className="relative h-64 md:h-80 w-full bg-white">
+      {onBackToList && (
+        <button
+          onClick={onBackToList}
+          className="lg:hidden absolute top-4 left-4 z-10 p-2 bg-black/40 backdrop-blur-sm rounded-full text-white hover:bg-black/60 transition-colors shadow-lg"
+          aria-label={t('backToList')}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        </button>
+      )}
       <img
         src={profile.coverImage}
         alt="Cover"

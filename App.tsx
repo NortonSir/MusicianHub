@@ -59,6 +59,18 @@ const App: React.FC = () => {
         artist.name.toLowerCase().includes(searchQuery.toLowerCase())
     ), [artists, searchQuery]);
 
+  const upcomingEventDate = useMemo(() => {
+      if (!selectedProfile || !selectedProfile.events || selectedProfile.events.length === 0) {
+          return undefined;
+      }
+      // Sort events by date to find the earliest one
+      const sortedEvents = [...selectedProfile.events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      const firstEventDate = new Date(sortedEvents[0].date);
+      const year = firstEventDate.getFullYear();
+      const month = (firstEventDate.getMonth() + 1).toString().padStart(2, '0');
+      return `${year}/${month}`;
+  }, [selectedProfile]);
+
 
   if (view === 'list') {
     return (
@@ -107,7 +119,7 @@ const App: React.FC = () => {
         />
         
         <div className="flex-1 lg:pl-64">
-          <Header profile={selectedProfile} t={t} />
+          <Header profile={selectedProfile} t={t} onBackToList={handleBackToList} />
           
           <main className="p-4 md:p-8">
             {activeTab === 'profile' && (
@@ -124,7 +136,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="lg:col-span-1 space-y-8">
-                   <ProfileSection title={t('upcomingShows')}>
+                   <ProfileSection title={t('upcomingShows')} meta={upcomingEventDate}>
                     <EventSection events={selectedProfile.events} t={t} />
                   </ProfileSection>
                   

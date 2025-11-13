@@ -12,7 +12,7 @@ export const translations = {
     backToList: '아티스트 목록으로',
     // profile sections
     about: '소개',
-    upcomingShows: '예정된 공연',
+    upcomingShows: '일정',
     social: '소셜',
     bookingContact: '섭외 및 연락처',
     music: '음반',
@@ -71,7 +71,7 @@ export const translations = {
     backToList: 'Back to Artist List',
     // profile sections
     about: 'About',
-    upcomingShows: 'Upcoming Performances',
+    upcomingShows: 'Schedule',
     social: 'Social',
     bookingContact: 'Booking & Contact',
     music: 'Discography',
